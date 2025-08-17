@@ -1,0 +1,63 @@
+# Configuration Jekyll pour la plateforme de cours DevOps
+title: "Plateforme de Cours DevOps"
+description: "Formation complète et progressive aux outils DevOps essentiels"
+baseurl: ""
+url: "https://username.github.io"
+
+# GitHub Pages configuration
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Markdown configuration
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Collections pour les modules de cours
+collections:
+  modules:
+    output: true
+    permalink: /:collection/:name/
+
+# Paramètres par défaut
+defaults:
+  - scope:
+      path: ""
+      type: "modules"
+    values:
+      layout: "course"
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "default"
+
+# Exclusions
+exclude:
+  - docker-environments/
+  - tests/
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
+
+# Navigation principale
+navigation:
+  - title: "Accueil"
+    url: "/"
+  - title: "Modules"
+    url: "/modules/"
+  - title: "Projets"
+    url: "/projects/"
+  - title: "Ressources"
+    url: "/resources/"
+
+# Métadonnées du site
+author: "DevOps Course Platform"
+lang: "fr"
+timezone: "Europe/Paris"
