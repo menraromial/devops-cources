@@ -15,21 +15,7 @@
     {% seo %}
 </head>
 <body>
-    <header class="site-header">
-        <div class="container">
-            <h1 class="site-title">
-                <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
-            </h1>
-            <nav class="main-nav">
-                {% for item in site.navigation %}
-                <a href="{{ item.url | relative_url }}" 
-                   {% if page.url == item.url %}class="active"{% endif %}>
-                   {{ item.title }}
-                </a>
-                {% endfor %}
-            </nav>
-        </div>
-    </header>
+    {% include navigation.html %}
 
     <main class="main-content">
         <div class="container">

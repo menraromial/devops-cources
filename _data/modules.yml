@@ -1,0 +1,88 @@
+modules:
+  - id: "01-fundamentals"
+    title: "Fondamentaux DevOps"
+    level: "débutant"
+    duration: "4 heures"
+    prerequisites: []
+    objectives:
+      - "Comprendre les principes DevOps"
+      - "Maîtriser les outils de base"
+      - "Découvrir l'écosystème DevOps"
+    progress_weight: 10
+    
+  - id: "02-ansible"
+    title: "Ansible - Automatisation de Configuration"
+    level: "intermédiaire"
+    duration: "8 heures"
+    prerequisites: ["01-fundamentals"]
+    objectives:
+      - "Créer des playbooks Ansible"
+      - "Gérer des inventaires complexes"
+      - "Utiliser les rôles et templates"
+    progress_weight: 15
+    
+  - id: "03-terraform"
+    title: "Terraform - Infrastructure as Code"
+    level: "intermédiaire"
+    duration: "8 heures"
+    prerequisites: ["01-fundamentals"]
+    objectives:
+      - "Maîtriser la syntaxe HCL"
+      - "Gérer l'état Terraform"
+      - "Créer des modules réutilisables"
+    progress_weight: 15
+    
+  - id: "04-gitlab-ci"
+    title: "GitLab CI/CD - Intégration Continue"
+    level: "intermédiaire"
+    duration: "6 heures"
+    prerequisites: ["02-ansible", "03-terraform"]
+    objectives:
+      - "Créer des pipelines CI/CD"
+      - "Gérer les environnements"
+      - "Automatiser les déploiements"
+    progress_weight: 15
+    
+  - id: "05-docker"
+    title: "Docker - Conteneurisation"
+    level: "débutant"
+    duration: "6 heures"
+    prerequisites: ["01-fundamentals"]
+    objectives:
+      - "Créer des images Docker"
+      - "Orchestrer avec docker-compose"
+      - "Optimiser les conteneurs"
+    progress_weight: 12
+    
+  - id: "06-kubernetes"
+    title: "Kubernetes - Orchestration"
+    level: "avancé"
+    duration: "10 heures"
+    prerequisites: ["05-docker"]
+    objectives:
+      - "Déployer sur Kubernetes"
+      - "Gérer les services et ingress"
+      - "Configurer le monitoring"
+    progress_weight: 20
+    
+  - id: "07-monitoring"
+    title: "Monitoring - Prometheus & Grafana"
+    level: "avancé"
+    duration: "6 heures"
+    prerequisites: ["06-kubernetes"]
+    objectives:
+      - "Configurer Prometheus"
+      - "Créer des dashboards Grafana"
+      - "Mettre en place des alertes"
+    progress_weight: 8
+    
+  - id: "08-projects"
+    title: "Projets Intégrés"
+    level: "expert"
+    duration: "12 heures"
+    prerequisites: ["04-gitlab-ci", "06-kubernetes", "07-monitoring"]
+    objectives:
+      - "Intégrer tous les outils"
+      - "Créer une chaîne DevOps complète"
+      - "Optimiser les performances"
+    progress_weight: 5

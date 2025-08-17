@@ -2,6 +2,8 @@
 layout: default
 ---
 
+<body class="module-page" data-module-id="{{ page.module_id }}">
+
 <article class="course-content">
     <header class="course-header">
         <div class="course-meta">
@@ -47,6 +49,9 @@ layout: default
         {% endif %}
     </header>
 
+    <!-- Indicateurs de progression -->
+    {% include progress-indicators.html %}
+
     <div class="course-body">
         {{ content }}
     </div>
@@ -84,3 +89,5 @@ layout: default
         {% endif %}
     </nav>
 </article>
+
+</body>

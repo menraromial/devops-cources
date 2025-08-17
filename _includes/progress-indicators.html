@@ -1,0 +1,255 @@
+<!-- Indicateurs de progression pour les modules -->
+<div class="progress-indicators">
+    <!-- Progression du module actuel -->
+    {% if page.layout == 'course' and page.module_id %}
+    <div class="module-progress-card">
+        <h3 class="progress-title">
+            <span class="progress-icon">📊</span>
+            Progression du module
+        </h3>
+        
+        <div class="current-module-progress">
+            <div class="module-info">
+                <span class="module-name">{{ page.title }}</span>
+                <span class="module-level difficulty-{{ page.level | default: 'debutant' }}">
+                    {{ page.level | default: 'débutant' | capitalize }}
+                </span>
+            </div>
+            
+            <div class="progress-bar-container">
+                <div class="progress-bar large">
+                    <div class="progress-fill" id="currentModuleProgress" style="width: 0%"></div>
+                </div>
+                <div class="progress-details">
+                    <span class="progress-percentage" id="currentModulePercentage">0%</span>
+                    <span class="progress-items" id="currentModuleItems">0/0 sections</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Vue d'ensemble des modules -->
+    <div class="modules-overview">
+        <h3 class="progress-title">
+            <span class="progress-icon">🎯</span>
+            Vue d'ensemble du parcours
+        </h3>
+        
+        <div class="modules-grid">
+            {% for module in site.data.modules.modules %}
+            <div class="module-card {% if page.module_id == module.id %}current{% endif %}" 
+                 data-module-id="{{ module.id }}">
+                
+                <div class="module-header">
+                    <h4 class="module-title">
+                        <a href="{{ '/modules/' | append: module.id | append: '/' | relative_url }}">
+                            {{ module.title }}
+                        </a>
+                    </h4>
+                    <div class="module-badges">
+                        <span class="difficulty-badge difficulty-{{ module.level }}">
+                            {{ module.level | capitalize }}
+                        </span>
+                        <span class="duration-badge">
+                            ⏱️ {{ module.duration }}
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="module-progress-mini">
+                    <div class="progress-bar mini">
+                        <div class="progress-fill" 
+                             data-module="{{ module.id }}" 
+                             style="width: 0%"></div>
+                    </div>
+                    <span class="progress-text mini" data-module="{{ module.id }}">0%</span>
+                </div>
+                
+                <!-- Prérequis -->
+                {% if module.prerequisites.size > 0 %}
+                <div class="module-prerequisites">
+                    <span class="prerequisites-label">Prérequis:</span>
+                    <div class="prerequisites-list">
+                        {% for prereq in module.prerequisites %}
+                        {% assign prereq_module = site.data.modules.modules | where: "id", prereq | first %}
+                        <span class="prerequisite-item" data-prereq="{{ prereq }}">
+                            {{ prereq_module.title | truncate: 20 }}
+                        </span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Statut du module -->
+                <div class="module-status" data-module="{{ module.id }}">
+                    <span class="status-icon">⏳</span>
+                    <span class="status-text">Non commencé</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Statistiques globales -->
+    <div class="global-stats">
+        <h3 class="progress-title">
+            <span class="progress-icon">📈</span>
+            Statistiques
+        </h3>
+        
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-value" id="completedModules">0</div>
+                <div class="stat-label">Modules terminés</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="totalHours">0h</div>
+                <div class="stat-label">Temps d'étude</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="currentStreak">0</div>
+                <div class="stat-label">Jours consécutifs</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="skillLevel">Débutant</div>
+                <div class="stat-label">Niveau actuel</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script pour initialiser les indicateurs de progression -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    initializeProgressIndicators();
+});
+
+function initializeProgressIndicators() {
+    // Charger les données de progression depuis localStorage
+    const progressData = loadProgressData();
+    
+    // Mettre à jour tous les indicateurs
+    updateAllProgressIndicators(progressData);
+    
+    // Mettre à jour les statistiques
+    updateGlobalStats(progressData);
+}
+
+function loadProgressData() {
+    const saved = localStorage.getItem('devops_course_progress');
+    return saved ? JSON.parse(saved) : {};
+}
+
+function updateAllProgressIndicators(progressData) {
+    // Mettre à jour la progression de chaque module
+    {% for module in site.data.modules.modules %}
+    updateModuleProgress('{{ module.id }}', progressData['{{ module.id }}'] || 0);
+    {% endfor %}
+    
+    // Mettre à jour la progression globale
+    updateGlobalProgress(progressData);
+}
+
+function updateModuleProgress(moduleId, progress) {
+    const progressFill = document.querySelector(`[data-module="${moduleId}"].progress-fill`);
+    const progressText = document.querySelector(`[data-module="${moduleId}"].progress-text`);
+    const moduleStatus = document.querySelector(`[data-module="${moduleId}"].module-status`);
+    
+    if (progressFill) {
+        progressFill.style.width = progress + '%';
+    }
+    
+    if (progressText) {
+        progressText.textContent = Math.round(progress) + '%';
+    }
+    
+    if (moduleStatus) {
+        updateModuleStatus(moduleStatus, progress);
+    }
+}
+
+function updateModuleStatus(statusElement, progress) {
+    const icon = statusElement.querySelector('.status-icon');
+    const text = statusElement.querySelector('.status-text');
+    
+    if (progress === 0) {
+        icon.textContent = '⏳';
+        text.textContent = 'Non commencé';
+        statusElement.className = 'module-status not-started';
+    } else if (progress < 100) {
+        icon.textContent = '🔄';
+        text.textContent = 'En cours';
+        statusElement.className = 'module-status in-progress';
+    } else {
+        icon.textContent = '✅';
+        text.textContent = 'Terminé';
+        statusElement.className = 'module-status completed';
+    }
+}
+
+function updateGlobalProgress(progressData) {
+    const modules = {{ site.data.modules.modules | jsonify }};
+    let totalWeight = 0;
+    let completedWeight = 0;
+    
+    modules.forEach(module => {
+        const progress = progressData[module.id] || 0;
+        totalWeight += module.progress_weight;
+        completedWeight += (progress / 100) * module.progress_weight;
+    });
+    
+    const globalProgress = totalWeight > 0 ? (completedWeight / totalWeight) * 100 : 0;
+    
+    const globalFill = document.getElementById('globalProgressFill');
+    const globalText = document.getElementById('globalProgressText');
+    
+    if (globalFill) {
+        globalFill.style.width = globalProgress + '%';
+    }
+    
+    if (globalText) {
+        globalText.textContent = `Progression globale: ${Math.round(globalProgress)}%`;
+    }
+}
+
+function updateGlobalStats(progressData) {
+    const modules = {{ site.data.modules.modules | jsonify }};
+    
+    let completedCount = 0;
+    let totalHours = 0;
+    
+    modules.forEach(module => {
+        const progress = progressData[module.id] || 0;
+        if (progress === 100) {
+            completedCount++;
+        }
+        
+        // Calculer les heures basées sur la progression
+        const hours = parseInt(module.duration);
+        totalHours += (progress / 100) * hours;
+    });
+    
+    // Mettre à jour les statistiques
+    const completedElement = document.getElementById('completedModules');
+    const hoursElement = document.getElementById('totalHours');
+    const skillElement = document.getElementById('skillLevel');
+    
+    if (completedElement) {
+        completedElement.textContent = completedCount;
+    }
+    
+    if (hoursElement) {
+        hoursElement.textContent = Math.round(totalHours) + 'h';
+    }
+    
+    if (skillElement) {
+        let skillLevel = 'Débutant';
+        if (completedCount >= 6) skillLevel = 'Expert';
+        else if (completedCount >= 4) skillLevel = 'Avancé';
+        else if (completedCount >= 2) skillLevel = 'Intermédiaire';
+        
+        skillElement.textContent = skillLevel;
+    }
+}
+</script>

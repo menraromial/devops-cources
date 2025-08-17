@@ -6,7 +6,7 @@
   - Configurer les layouts de base (default.html, course.html, exercise.html)
   - _Requirements: 7.1, 7.2_
 
-- [ ] 2. Créer les composants de navigation et interface utilisateur
+- [x] 2. Créer les composants de navigation et interface utilisateur
   - Implémenter le composant de navigation principale (_includes/navigation.html)
   - Créer les styles CSS pour une interface responsive et moderne
   - Développer les indicateurs de progression pour les modules

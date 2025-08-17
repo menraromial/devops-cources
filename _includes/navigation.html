@@ -1,0 +1,77 @@
+<!-- Navigation principale avec indicateurs de progression -->
+<nav class="main-navigation" role="navigation" aria-label="Navigation principale">
+    <div class="nav-container">
+        <!-- Logo et titre -->
+        <div class="nav-brand">
+            <a href="{{ '/' | relative_url }}" class="brand-link">
+                <span class="brand-icon">🚀</span>
+                <span class="brand-text">{{ site.title }}</span>
+            </a>
+        </div>
+
+        <!-- Menu principal -->
+        <div class="nav-menu" id="navMenu">
+            <ul class="nav-list">
+                {% for item in site.navigation %}
+                <li class="nav-item">
+                    <a href="{{ item.url | relative_url }}" 
+                       class="nav-link {% if page.url == item.url or page.url contains item.url %}active{% endif %}"
+                       {% if item.url contains 'modules' %}data-nav-type="modules"{% endif %}>
+                        {{ item.title }}
+                        {% if item.url contains 'modules' %}
+                            <span class="nav-badge" id="moduleProgress">0/8</span>
+                        {% endif %}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Bouton menu mobile -->
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+    </div>
+
+    <!-- Barre de progression globale -->
+    {% if page.layout == 'course' or page.url contains 'modules' %}
+    <div class="global-progress">
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="globalProgressFill" style="width: 0%"></div>
+            </div>
+            <span class="progress-text" id="globalProgressText">Progression globale: 0%</span>
+        </div>
+    </div>
+    {% endif %}
+</nav>
+
+<!-- Navigation breadcrumb pour les modules -->
+{% if page.layout == 'course' or page.layout == 'exercise' %}
+<nav class="breadcrumb-nav" aria-label="Fil d'Ariane">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{{ '/' | relative_url }}">Accueil</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ '/modules/' | relative_url }}">Modules</a>
+            </li>
+            {% if page.module_id %}
+            <li class="breadcrumb-item">
+                <a href="{{ '/modules/' | append: page.module_id | append: '/' | relative_url }}">
+                    {{ page.module_title | default: page.title }}
+                </a>
+            </li>
+            {% endif %}
+            {% if page.layout == 'exercise' %}
+            <li class="breadcrumb-item active" aria-current="page">
+                {{ page.title }}
+            </li>
+            {% endif %}
+        </ol>
+    </div>
+</nav>
+{% endif %}
