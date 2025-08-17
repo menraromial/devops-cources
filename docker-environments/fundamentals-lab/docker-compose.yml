@@ -1,0 +1,104 @@
+version: '3.8'
+
+services:
+  # Git server pour les exercices de contrôle de version
+  gitea:
+    image: gitea/gitea:1.21
+    container_name: fundamentals-git-server
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - GITEA__database__DB_TYPE=sqlite3
+      - GITEA__database__PATH=/data/gitea/gitea.db
+      - GITEA__server__DOMAIN=localhost
+      - GITEA__server__HTTP_PORT=3000
+      - GITEA__server__ROOT_URL=http://localhost:3000/
+      - GITEA__security__INSTALL_LOCK=true
+      - GITEA__security__SECRET_KEY=changeme
+      - GITEA__security__INTERNAL_TOKEN=changeme
+    restart: unless-stopped
+    volumes:
+      - gitea-data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "3000:3000"
+      - "2222:22"
+    networks:
+      - devops-fundamentals
+
+  # Jenkins pour les exercices CI/CD basiques
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: fundamentals-jenkins
+    user: root
+    environment:
+      - JENKINS_OPTS=--httpPort=8080
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./jenkins/plugins.txt:/usr/share/jenkins/ref/plugins.txt
+      - ./jenkins/init.groovy.d/:/usr/share/jenkins/ref/init.groovy.d/
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    networks:
+      - devops-fundamentals
+    depends_on:
+      - gitea
+
+  # Container de développement avec outils DevOps
+  devtools:
+    image: ubuntu:22.04
+    container_name: fundamentals-devtools
+    command: tail -f /dev/null
+    environment:
+      - DEBIAN_FRONTEND=noninteractive
+    volumes:
+      - ./exercises:/workspace
+      - devtools-home:/home/devops
+    working_dir: /workspace
+    networks:
+      - devops-fundamentals
+    stdin_open: true
+    tty: true
+
+  # Application d'exemple pour les exercices de déploiement
+  sample-app:
+    build:
+      context: ./sample-app
+      dockerfile: Dockerfile
+    container_name: fundamentals-sample-app
+    ports:
+      - "8000:8000"
+    networks:
+      - devops-fundamentals
+    environment:
+      - ENV=development
+      - PORT=8000
+
+  # Base de données pour l'application d'exemple
+  postgres:
+    image: postgres:15
+    container_name: fundamentals-postgres
+    environment:
+      - POSTGRES_DB=sampleapp
+      - POSTGRES_USER=devops
+      - POSTGRES_PASSWORD=devops123
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - devops-fundamentals
+
+volumes:
+  gitea-data:
+  jenkins-data:
+  devtools-home:
+  postgres-data:
+
+networks:
+  devops-fundamentals:
+    driver: bridge

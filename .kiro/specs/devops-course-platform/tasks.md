@@ -29,15 +29,15 @@
   - Intégrer l'affichage des sources dans chaque module
   - _Requirements: 6.1, 6.2, 6.3, 6.4_
 
-- [ ] 4. Créer le module Fondamentaux DevOps
-- [ ] 4.1 Rédiger le contenu théorique du module fondamentaux
+- [x] 4. Créer le module Fondamentaux DevOps
+- [x] 4.1 Rédiger le contenu théorique du module fondamentaux
 
   - Créer modules/01-fundamentals/index.md avec le contenu complet
   - Inclure les concepts DevOps, culture, outils et méthodologies
   - Ajouter les sources et références appropriées
   - _Requirements: 1.1, 6.1_
 
-- [ ] 4.2 Développer les exercices pratiques pour les fondamentaux
+- [x] 4.2 Développer les exercices pratiques pour les fondamentaux
 
   - Créer des exercices d'introduction aux outils DevOps
   - Implémenter des environnements Docker simples pour la découverte

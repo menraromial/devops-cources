@@ -16,6 +16,38 @@ references:
     description: "Livre de référence sur les pratiques SRE de Google"
     tags: ["sre", "reliability", "monitoring"]
     
+  accelerate-book:
+    title: "Accelerate: The Science of Lean Software and DevOps"
+    authors: ["Nicole Forsgren", "Jez Humble", "Gene Kim"]
+    type: "book"
+    url: "https://itrevolution.com/accelerate-book/"
+    description: "Recherche scientifique sur les pratiques DevOps performantes"
+    tags: ["devops", "metrics", "performance", "research"]
+    
+  phoenix-project:
+    title: "The Phoenix Project"
+    authors: ["Gene Kim", "Kevin Behr", "George Spafford"]
+    type: "book"
+    url: "https://itrevolution.com/the-phoenix-project/"
+    description: "Roman sur la transformation DevOps d'une entreprise"
+    tags: ["devops", "transformation", "culture"]
+    
+  git-docs:
+    title: "Documentation Officielle Git"
+    authors: ["Git Community"]
+    type: "documentation"
+    url: "https://git-scm.com/doc"
+    description: "Documentation complète de Git"
+    tags: ["git", "version-control", "documentation"]
+    
+  dora-research:
+    title: "State of DevOps Report"
+    authors: ["DORA Team"]
+    type: "research"
+    url: "https://cloud.google.com/devops/state-of-devops/"
+    description: "Rapport annuel sur l'état des pratiques DevOps"
+    tags: ["devops", "metrics", "research", "benchmarking"]
+    
   # Références Docker
   docker-docs:
     title: "Documentation Officielle Docker"
@@ -147,6 +179,10 @@ module_references:
   "01-fundamentals":
     - "devops-handbook"
     - "sre-book"
+    - "accelerate-book"
+    - "phoenix-project"
+    - "git-docs"
+    - "dora-research"
     
   "02-ansible":
     - "ansible-docs"
