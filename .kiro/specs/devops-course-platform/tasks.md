@@ -1,6 +1,6 @@
 # Implementation Plan
 
-- [ ] 1. Initialiser la structure de base du projet Jekyll
+- [x] 1. Initialiser la structure de base du projet Jekyll
   - Créer la configuration Jekyll (_config.yml) avec les paramètres pour GitHub Pages
   - Créer la structure de dossiers selon l'architecture définie
   - Configurer les layouts de base (default.html, course.html, exercise.html)

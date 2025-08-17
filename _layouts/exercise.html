@@ -1,0 +1,132 @@
+---
+layout: default
+---
+
+<article class="exercise-content">
+    <header class="exercise-header">
+        <div class="exercise-meta">
+            {% if page.module %}
+            <span class="module-badge">Module {{ page.module }}</span>
+            {% endif %}
+            {% if page.difficulty %}
+            <span class="difficulty-badge difficulty-{{ page.difficulty }}">
+                {{ page.difficulty | capitalize }}
+            </span>
+            {% endif %}
+            {% if page.estimated_time %}
+            <span class="time-badge">⏱️ {{ page.estimated_time }}</span>
+            {% endif %}
+            {% if page.type %}
+            <span class="type-badge">{{ page.type }}</span>
+            {% endif %}
+        </div>
+        
+        <h1 class="exercise-title">{{ page.title }}</h1>
+        
+        {% if page.description %}
+        <p class="exercise-description">{{ page.description }}</p>
+        {% endif %}
+        
+        {% if page.objectives %}
+        <div class="exercise-objectives">
+            <h2>🎯 Objectifs</h2>
+            <ul>
+                {% for objective in page.objectives %}
+                <li>{{ objective }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        
+        {% if page.prerequisites %}
+        <div class="exercise-prerequisites">
+            <h2>📋 Prérequis</h2>
+            <ul>
+                {% for prerequisite in page.prerequisites %}
+                <li>{{ prerequisite }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        
+        {% if page.tools %}
+        <div class="exercise-tools">
+            <h2>🛠️ Outils nécessaires</h2>
+            <ul>
+                {% for tool in page.tools %}
+                <li>{{ tool }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </header>
+
+    <div class="exercise-body">
+        {{ content }}
+    </div>
+
+    {% if page.validation %}
+    <section class="exercise-validation">
+        <h2>✅ Validation</h2>
+        <div class="validation-criteria">
+            {% for criterion in page.validation %}
+            <div class="validation-item">
+                <input type="checkbox" id="validation-{{ forloop.index }}">
+                <label for="validation-{{ forloop.index }}">{{ criterion }}</label>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    {% if page.resources %}
+    <section class="exercise-resources">
+        <h2>📚 Ressources utiles</h2>
+        <ul>
+            {% for resource in page.resources %}
+            <li>
+                {% if resource.url %}
+                <a href="{{ resource.url }}" target="_blank">{{ resource.title }}</a>
+                {% else %}
+                {{ resource.title }}
+                {% endif %}
+                {% if resource.description %}
+                - {{ resource.description }}
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    {% if page.solution_url %}
+    <section class="exercise-solution">
+        <details>
+            <summary>💡 Solution</summary>
+            <p>
+                <a href="{{ page.solution_url | relative_url }}" class="btn btn-secondary">
+                    Voir la solution
+                </a>
+            </p>
+        </details>
+    </section>
+    {% endif %}
+
+    <nav class="exercise-navigation">
+        {% if page.previous %}
+        <a href="{{ page.previous | relative_url }}" class="nav-link nav-prev">
+            ← {{ page.previous_title | default: "Exercice précédent" }}
+        </a>
+        {% endif %}
+        
+        <a href="{{ page.course_url | relative_url }}" class="nav-link nav-course">
+            📖 Retour au cours
+        </a>
+        
+        {% if page.next %}
+        <a href="{{ page.next | relative_url }}" class="nav-link nav-next">
+            {{ page.next_title | default: "Exercice suivant" }} →
+        </a>
+        {% endif %}
+    </nav>
+</article>

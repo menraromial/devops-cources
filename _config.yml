@@ -1,8 +1,8 @@
 # Configuration Jekyll pour la plateforme de cours DevOps
 title: "Plateforme de Cours DevOps"
 description: "Formation complète et progressive aux outils DevOps essentiels"
-baseurl: ""
-url: "https://username.github.io"
+baseurl: "/devops-cources"
+url: "https://menraromial.github.io"
 
 # GitHub Pages configuration
 plugins:

@@ -1,0 +1,116 @@
+---
+layout: default
+title: "Accueil"
+description: "Formation complète et progressive aux outils DevOps essentiels"
+---
+
+<div class="hero-section">
+    <h1>Bienvenue sur la Plateforme de Cours DevOps</h1>
+    <p class="hero-description">
+        Apprenez les outils DevOps essentiels à travers une formation progressive et pratique.
+        De l'infrastructure as code au monitoring, maîtrisez les technologies qui transforment le développement moderne.
+    </p>
+    <a href="/modules/" class="btn btn-primary">Commencer la formation</a>
+</div>
+
+<section class="modules-overview">
+    <h2>Modules de formation</h2>
+    <div class="modules-grid">
+        <div class="module-card">
+            <h3>Module 1: Fondamentaux DevOps</h3>
+            <p>Introduction aux concepts DevOps, culture et méthodologies.</p>
+            <span class="difficulty-badge difficulty-debutant">Débutant</span>
+        </div>
+        
+        <div class="module-card">
+            <h3>Module 2: Ansible</h3>
+            <p>Automatisation de la configuration et déploiement avec Ansible.</p>
+            <span class="difficulty-badge difficulty-debutant">Débutant</span>
+        </div>
+        
+        <div class="module-card">
+            <h3>Module 3: Terraform</h3>
+            <p>Infrastructure as Code avec Terraform.</p>
+            <span class="difficulty-badge difficulty-intermediaire">Intermédiaire</span>
+        </div>
+        
+        <div class="module-card">
+            <h3>Module 4: GitLab CI/CD</h3>
+            <p>Intégration et déploiement continus avec GitLab.</p>
+            <span class="difficulty-badge difficulty-intermediaire">Intermédiaire</span>
+        </div>
+        
+        <div class="module-card">
+            <h3>Module 5: Docker</h3>
+            <p>Conteneurisation d'applications avec Docker.</p>
+            <span class="difficulty-badge difficulty-intermediaire">Intermédiaire</span>
+        </div>
+        
+        <div class="module-card">
+            <h3>Module 6: Kubernetes</h3>
+            <p>Orchestration de conteneurs avec Kubernetes.</p>
+            <span class="difficulty-badge difficulty-avance">Avancé</span>
+        </div>
+        
+        <div class="module-card">
+            <h3>Module 7: Monitoring</h3>
+            <p>Surveillance et observabilité avec Prometheus et Grafana.</p>
+            <span class="difficulty-badge difficulty-avance">Avancé</span>
+        </div>
+        
+        <div class="module-card">
+            <h3>Module 8: Projets</h3>
+            <p>Projets pratiques intégrant tous les outils appris.</p>
+            <span class="difficulty-badge difficulty-avance">Avancé</span>
+        </div>
+    </div>
+</section>
+
+<style>
+.hero-section {
+    text-align: center;
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    margin: -2rem -20px 3rem -20px;
+}
+
+.hero-description {
+    font-size: 1.2rem;
+    margin: 1.5rem 0 2rem 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.module-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.module-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.module-card h3 {
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.module-card p {
+    margin-bottom: 1rem;
+    color: #666;
+}
+</style>

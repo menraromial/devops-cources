@@ -1,0 +1,86 @@
+---
+layout: default
+---
+
+<article class="course-content">
+    <header class="course-header">
+        <div class="course-meta">
+            {% if page.module %}
+            <span class="module-badge">Module {{ page.module }}</span>
+            {% endif %}
+            {% if page.difficulty %}
+            <span class="difficulty-badge difficulty-{{ page.difficulty }}">
+                {{ page.difficulty | capitalize }}
+            </span>
+            {% endif %}
+            {% if page.duration %}
+            <span class="duration-badge">{{ page.duration }}</span>
+            {% endif %}
+        </div>
+        
+        <h1 class="course-title">{{ page.title }}</h1>
+        
+        {% if page.description %}
+        <p class="course-description">{{ page.description }}</p>
+        {% endif %}
+        
+        {% if page.objectives %}
+        <div class="course-objectives">
+            <h2>Objectifs d'apprentissage</h2>
+            <ul>
+                {% for objective in page.objectives %}
+                <li>{{ objective }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        
+        {% if page.prerequisites %}
+        <div class="course-prerequisites">
+            <h2>Prérequis</h2>
+            <ul>
+                {% for prerequisite in page.prerequisites %}
+                <li>{{ prerequisite }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </header>
+
+    <div class="course-body">
+        {{ content }}
+    </div>
+
+    {% if page.exercises %}
+    <section class="course-exercises">
+        <h2>Exercices pratiques</h2>
+        <div class="exercises-grid">
+            {% for exercise in page.exercises %}
+            <div class="exercise-card">
+                <h3>{{ exercise.title }}</h3>
+                <p>{{ exercise.description }}</p>
+                {% if exercise.url %}
+                <a href="{{ exercise.url | relative_url }}" class="btn btn-primary">
+                    Commencer l'exercice
+                </a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <nav class="course-navigation">
+        {% if page.previous %}
+        <a href="{{ page.previous | relative_url }}" class="nav-link nav-prev">
+            ← {{ page.previous_title | default: "Précédent" }}
+        </a>
+        {% endif %}
+        
+        {% if page.next %}
+        <a href="{{ page.next | relative_url }}" class="nav-link nav-next">
+            {{ page.next_title | default: "Suivant" }} →
+        </a>
+        {% endif %}
+    </nav>
+</article>
