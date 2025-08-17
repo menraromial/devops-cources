@@ -6,7 +6,10 @@ permalink: /resources/
 
 # Ressources DevOps
 
-Cette page centralise toutes les ressources utiles pour votre apprentissage DevOps.
+Cette page centralise toutes les ressources utiles pour votre apprentissage DevOps, organisées par catégorie et type de contenu.
+
+<!-- Affichage de toutes les références -->
+{% include references.html %}
 
 ## 📚 Documentation Officielle
 

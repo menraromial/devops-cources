@@ -56,6 +56,11 @@ layout: default
         {{ content }}
     </div>
 
+    <!-- Références et sources du module -->
+    {% if page.module_id %}
+    {% include references.html module_id=page.module_id %}
+    {% endif %}
+
     {% if page.exercises %}
     <section class="course-exercises">
         <h2>Exercices pratiques</h2>

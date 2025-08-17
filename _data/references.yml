@@ -1,0 +1,181 @@
+references:
+  # Références générales DevOps
+  devops-handbook:
+    title: "The DevOps Handbook"
+    authors: ["Gene Kim", "Jez Humble", "Patrick Debois", "John Willis"]
+    type: "book"
+    url: "https://itrevolution.com/the-devops-handbook/"
+    description: "Guide complet sur l'implémentation des pratiques DevOps"
+    tags: ["devops", "culture", "practices"]
+    
+  sre-book:
+    title: "Site Reliability Engineering"
+    authors: ["Google SRE Team"]
+    type: "book"
+    url: "https://sre.google/books/"
+    description: "Livre de référence sur les pratiques SRE de Google"
+    tags: ["sre", "reliability", "monitoring"]
+    
+  # Références Docker
+  docker-docs:
+    title: "Documentation Officielle Docker"
+    authors: ["Docker Inc."]
+    type: "documentation"
+    url: "https://docs.docker.com/"
+    description: "Documentation complète de Docker"
+    tags: ["docker", "containers", "documentation"]
+    
+  docker-best-practices:
+    title: "Docker Best Practices"
+    authors: ["Docker Inc."]
+    type: "guide"
+    url: "https://docs.docker.com/develop/dev-best-practices/"
+    description: "Bonnes pratiques pour le développement avec Docker"
+    tags: ["docker", "best-practices", "development"]
+    
+  # Références Ansible
+  ansible-docs:
+    title: "Documentation Officielle Ansible"
+    authors: ["Red Hat Inc."]
+    type: "documentation"
+    url: "https://docs.ansible.com/"
+    description: "Documentation complète d'Ansible"
+    tags: ["ansible", "automation", "documentation"]
+    
+  ansible-best-practices:
+    title: "Ansible Best Practices"
+    authors: ["Red Hat Inc."]
+    type: "guide"
+    url: "https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html"
+    description: "Guide des bonnes pratiques Ansible"
+    tags: ["ansible", "best-practices", "playbooks"]
+    
+  ansible-galaxy:
+    title: "Ansible Galaxy"
+    authors: ["Red Hat Inc."]
+    type: "platform"
+    url: "https://galaxy.ansible.com/"
+    description: "Hub communautaire pour les rôles Ansible"
+    tags: ["ansible", "roles", "community"]
+    
+  # Références Terraform
+  terraform-docs:
+    title: "Documentation Officielle Terraform"
+    authors: ["HashiCorp"]
+    type: "documentation"
+    url: "https://www.terraform.io/docs/"
+    description: "Documentation complète de Terraform"
+    tags: ["terraform", "iac", "documentation"]
+    
+  terraform-best-practices:
+    title: "Terraform Best Practices"
+    authors: ["HashiCorp"]
+    type: "guide"
+    url: "https://www.terraform.io/docs/cloud/guides/recommended-practices/"
+    description: "Guide des bonnes pratiques Terraform"
+    tags: ["terraform", "best-practices", "iac"]
+    
+  terraform-registry:
+    title: "Terraform Registry"
+    authors: ["HashiCorp"]
+    type: "platform"
+    url: "https://registry.terraform.io/"
+    description: "Registry officiel des providers et modules Terraform"
+    tags: ["terraform", "modules", "providers"]
+    
+  # Références GitLab CI/CD
+  gitlab-ci-docs:
+    title: "Documentation GitLab CI/CD"
+    authors: ["GitLab Inc."]
+    type: "documentation"
+    url: "https://docs.gitlab.com/ee/ci/"
+    description: "Documentation complète de GitLab CI/CD"
+    tags: ["gitlab", "ci-cd", "documentation"]
+    
+  gitlab-ci-examples:
+    title: "GitLab CI/CD Examples"
+    authors: ["GitLab Inc."]
+    type: "examples"
+    url: "https://docs.gitlab.com/ee/ci/examples/"
+    description: "Exemples de configurations GitLab CI/CD"
+    tags: ["gitlab", "ci-cd", "examples"]
+    
+  # Références Kubernetes
+  kubernetes-docs:
+    title: "Documentation Officielle Kubernetes"
+    authors: ["CNCF"]
+    type: "documentation"
+    url: "https://kubernetes.io/docs/"
+    description: "Documentation complète de Kubernetes"
+    tags: ["kubernetes", "orchestration", "documentation"]
+    
+  kubernetes-best-practices:
+    title: "Kubernetes Best Practices"
+    authors: ["Google Cloud"]
+    type: "guide"
+    url: "https://cloud.google.com/kubernetes-engine/docs/best-practices"
+    description: "Guide des bonnes pratiques Kubernetes"
+    tags: ["kubernetes", "best-practices", "production"]
+    
+  # Références Monitoring
+  prometheus-docs:
+    title: "Documentation Prometheus"
+    authors: ["Prometheus Team"]
+    type: "documentation"
+    url: "https://prometheus.io/docs/"
+    description: "Documentation complète de Prometheus"
+    tags: ["prometheus", "monitoring", "documentation"]
+    
+  grafana-docs:
+    title: "Documentation Grafana"
+    authors: ["Grafana Labs"]
+    type: "documentation"
+    url: "https://grafana.com/docs/"
+    description: "Documentation complète de Grafana"
+    tags: ["grafana", "visualization", "documentation"]
+    
+  sre-workbook:
+    title: "The Site Reliability Workbook"
+    authors: ["Google SRE Team"]
+    type: "book"
+    url: "https://sre.google/workbook/table-of-contents/"
+    description: "Guide pratique pour implémenter les pratiques SRE"
+    tags: ["sre", "monitoring", "practices"]
+
+# Mapping des références par module
+module_references:
+  "01-fundamentals":
+    - "devops-handbook"
+    - "sre-book"
+    
+  "02-ansible":
+    - "ansible-docs"
+    - "ansible-best-practices"
+    - "ansible-galaxy"
+    
+  "03-terraform":
+    - "terraform-docs"
+    - "terraform-best-practices"
+    - "terraform-registry"
+    
+  "04-gitlab-ci":
+    - "gitlab-ci-docs"
+    - "gitlab-ci-examples"
+    
+  "05-docker":
+    - "docker-docs"
+    - "docker-best-practices"
+    
+  "06-kubernetes":
+    - "kubernetes-docs"
+    - "kubernetes-best-practices"
+    
+  "07-monitoring":
+    - "prometheus-docs"
+    - "grafana-docs"
+    - "sre-workbook"
+    
+  "08-projects":
+    - "devops-handbook"
+    - "sre-book"
+    - "kubernetes-best-practices"

@@ -1,0 +1,126 @@
+---
+layout: default
+---
+
+{% assign current_module = site.data.modules.modules | where: "id", page.module_id | first %}
+
+<article class="module-page" data-module-id="{{ page.module_id }}">
+    <header class="module-header">
+        <div class="module-meta">
+            <span class="module-badge">Module {{ page.module_id | slice: 0, 2 }}</span>
+            <span class="difficulty-badge difficulty-{{ current_module.level }}">
+                {{ current_module.level | capitalize }}
+            </span>
+            <span class="duration-badge">⏱️ {{ current_module.duration }}</span>
+        </div>
+        
+        <h1 class="module-title">{{ current_module.title }}</h1>
+        
+        {% if current_module.objectives %}
+        <div class="module-objectives">
+            <h2>🎯 Objectifs d'apprentissage</h2>
+            <ul class="objectives-list">
+                {% for objective in current_module.objectives %}
+                <li>{{ objective }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        
+        {% if current_module.prerequisites.size > 0 %}
+        <div class="module-prerequisites">
+            <h2>📋 Prérequis</h2>
+            <div class="prerequisites-grid">
+                {% for prereq_id in current_module.prerequisites %}
+                {% assign prereq_module = site.data.modules.modules | where: "id", prereq_id | first %}
+                <div class="prerequisite-card" data-prereq="{{ prereq_id }}">
+                    <span class="prerequisite-title">{{ prereq_module.title }}</span>
+                    <span class="prerequisite-status" data-module="{{ prereq_id }}">
+                        <span class="status-icon">⏳</span>
+                        <span class="status-text">Vérification...</span>
+                    </span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </header>
+
+    <!-- Indicateurs de progression -->
+    {% include progress-indicators.html %}
+
+    <div class="module-content">
+        {{ content }}
+    </div>
+
+    <!-- Références et sources du module -->
+    {% include references.html module_id=page.module_id %}
+
+    <!-- Navigation entre modules -->
+    <nav class="module-navigation">
+        {% assign current_index = site.data.modules.modules | map: "id" | index: page.module_id %}
+        {% if current_index > 0 %}
+        {% assign prev_module = site.data.modules.modules[current_index | minus: 1] %}
+        <a href="{{ '/modules/' | append: prev_module.id | append: '/' | relative_url }}" 
+           class="nav-link nav-prev">
+            <span class="nav-direction">← Précédent</span>
+            <span class="nav-title">{{ prev_module.title }}</span>
+        </a>
+        {% endif %}
+        
+        {% assign next_index = current_index | plus: 1 %}
+        {% if next_index < site.data.modules.modules.size %}
+        {% assign next_module = site.data.modules.modules[next_index] %}
+        <a href="{{ '/modules/' | append: next_module.id | append: '/' | relative_url }}" 
+           class="nav-link nav-next">
+            <span class="nav-direction">Suivant →</span>
+            <span class="nav-title">{{ next_module.title }}</span>
+        </a>
+        {% endif %}
+    </nav>
+</article>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    checkPrerequisites();
+    initializeModuleProgress();
+});
+
+function checkPrerequisites() {
+    const progressData = JSON.parse(localStorage.getItem('devops_course_progress') || '{}');
+    
+    document.querySelectorAll('.prerequisite-card').forEach(card => {
+        const moduleId = card.dataset.prereq;
+        const progress = progressData[moduleId] || 0;
+        const statusElement = card.querySelector('.prerequisite-status');
+        const icon = statusElement.querySelector('.status-icon');
+        const text = statusElement.querySelector('.status-text');
+        
+        if (progress >= 100) {
+            icon.textContent = '✅';
+            text.textContent = 'Terminé';
+            card.classList.add('completed');
+        } else if (progress > 0) {
+            icon.textContent = '🔄';
+            text.textContent = `${Math.round(progress)}%`;
+            card.classList.add('in-progress');
+        } else {
+            icon.textContent = '⏳';
+            text.textContent = 'Non commencé';
+            card.classList.add('not-started');
+        }
+    });
+}
+
+function initializeModuleProgress() {
+    const moduleId = '{{ page.module_id }}';
+    const progressData = JSON.parse(localStorage.getItem('devops_course_progress') || '{}');
+    
+    // Marquer le module comme commencé s'il ne l'est pas déjà
+    if (!progressData[moduleId]) {
+        progressData[moduleId] = 5; // 5% pour "commencé"
+        localStorage.setItem('devops_course_progress', JSON.stringify(progressData));
+    }
+}
+</script>
+</article>
