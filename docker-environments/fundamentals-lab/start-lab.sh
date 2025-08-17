@@ -117,7 +117,7 @@ if [ "$SERVICES_OK" = true ]; then
     echo -e "│ Jenkins     │ http://localhost:8080   │ admin/admin123    │"
     echo -e "│ Gitea       │ http://localhost:3000   │ À créer           │"
     echo -e "│ Sample App  │ http://localhost:8000   │ N/A               │"
-    echo -e "│ PostgreSQL  │ localhost:5432          │ devops/devops123  │"
+    echo -e "│ PostgreSQL  │ localhost:5433          │ devops/devops123  │"
     echo -e "└─────────────────────────────────────────────────────────┘"
     
     echo -e "\n${BLUE}🎯 Prochaines étapes :${NC}"

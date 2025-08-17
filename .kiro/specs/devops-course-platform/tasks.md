@@ -44,15 +44,15 @@
   - Ajouter des scripts de validation pour les exercices
   - _Requirements: 2.1, 2.2_
 
-- [ ] 5. Implémenter le module Docker
-- [ ] 5.1 Créer le contenu théorique Docker
+- [x] 5. Implémenter le module Docker
+- [x] 5.1 Créer le contenu théorique Docker
 
   - Rédiger modules/05-docker/index.md avec concepts, commandes et bonnes pratiques
   - Inclure des exemples progressifs du simple au complexe
   - Ajouter les références à la documentation officielle Docker
   - _Requirements: 8.1, 6.1_
 
-- [ ] 5.2 Développer les environnements et exercices Docker
+- [x] 5.2 Développer les environnements et exercices Docker
 
   - Créer docker-environments/docker-basics/ avec des exercices progressifs
   - Implémenter des Dockerfiles d'exemple et docker-compose.yml

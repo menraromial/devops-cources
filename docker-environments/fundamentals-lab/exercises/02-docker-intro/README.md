@@ -3,6 +3,7 @@
 ## Objectifs
 
 À la fin de cet exercice, vous serez capable de :
+
 - Comprendre les concepts fondamentaux des containers Docker
 - Créer et manipuler des images Docker
 - Gérer le cycle de vie des containers
@@ -10,6 +11,7 @@
 - Appliquer les bonnes pratiques de containerisation
 
 ## Durée Estimée
+
 60 minutes
 
 ## Prérequis
@@ -133,14 +135,14 @@ class CustomHandler(SimpleHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
-            
+
             response = {
                 'message': 'Hello from Docker!',
                 'timestamp': datetime.now().isoformat(),
                 'hostname': os.getenv('HOSTNAME', 'unknown'),
                 'version': '1.0.0'
             }
-            
+
             self.wfile.write(json.dumps(response, indent=2).encode())
         else:
             super().do_GET()
@@ -271,14 +273,14 @@ http {
 
     server {
         listen 80;
-        
+
         location / {
             proxy_pass http://app;
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         }
-        
+
         location /health {
             access_log off;
             return 200 "healthy\n";

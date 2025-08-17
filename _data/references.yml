@@ -65,6 +65,46 @@ references:
     description: "Bonnes pratiques pour le développement avec Docker"
     tags: ["docker", "best-practices", "development"]
     
+  dockerfile-best-practices:
+    title: "Best Practices for Writing Dockerfiles"
+    authors: ["Docker Inc."]
+    type: "guide"
+    url: "https://docs.docker.com/develop/dev-best-practices/dockerfile_best-practices/"
+    description: "Guide des bonnes pratiques pour écrire des Dockerfiles"
+    tags: ["docker", "dockerfile", "best-practices"]
+    
+  docker-compose-docs:
+    title: "Documentation Docker Compose"
+    authors: ["Docker Inc."]
+    type: "documentation"
+    url: "https://docs.docker.com/compose/"
+    description: "Documentation complète de Docker Compose"
+    tags: ["docker", "docker-compose", "orchestration"]
+    
+  docker-security:
+    title: "Docker Security"
+    authors: ["Docker Inc."]
+    type: "guide"
+    url: "https://docs.docker.com/engine/security/"
+    description: "Guide de sécurité Docker"
+    tags: ["docker", "security", "best-practices"]
+    
+  docker-networking:
+    title: "Docker Networking"
+    authors: ["Docker Inc."]
+    type: "documentation"
+    url: "https://docs.docker.com/network/"
+    description: "Documentation sur les réseaux Docker"
+    tags: ["docker", "networking", "containers"]
+    
+  docker-storage:
+    title: "Docker Storage"
+    authors: ["Docker Inc."]
+    type: "documentation"
+    url: "https://docs.docker.com/storage/"
+    description: "Documentation sur le stockage Docker"
+    tags: ["docker", "volumes", "storage"]
+    
   # Références Ansible
   ansible-docs:
     title: "Documentation Officielle Ansible"
@@ -201,6 +241,11 @@ module_references:
   "05-docker":
     - "docker-docs"
     - "docker-best-practices"
+    - "dockerfile-best-practices"
+    - "docker-compose-docs"
+    - "docker-security"
+    - "docker-networking"
+    - "docker-storage"
     
   "06-kubernetes":
     - "kubernetes-docs"
