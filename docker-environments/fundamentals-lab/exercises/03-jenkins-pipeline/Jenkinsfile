@@ -1,0 +1,102 @@
+pipeline {
+    agent any
+    
+    environment {
+        APP_NAME = 'calculator-app'
+        VERSION = '1.0.0'
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                echo '📥 Récupération du code source...'
+                checkout scm
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                echo '🔨 Construction de l\'application...'
+                sh './build.sh'
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                echo '🧪 Exécution des tests...'
+                sh 'python3 -m unittest test_app.py -v'
+            }
+            post {
+                always {
+                    echo '📊 Archivage des résultats de tests...'
+                    // En production, on utiliserait des plugins pour les rapports de tests
+                }
+            }
+        }
+        
+        stage('Package') {
+            steps {
+                echo '📦 Création du package de déploiement...'
+                sh '''
+                    echo "Création de l'archive de déploiement..."
+                    tar -czf ${APP_NAME}-${VERSION}.tar.gz dist/
+                    ls -la *.tar.gz
+                '''
+            }
+        }
+        
+        stage('Deploy to Staging') {
+            steps {
+                echo '🚀 Déploiement en staging...'
+                sh './deploy.sh'
+            }
+        }
+        
+        stage('Integration Tests') {
+            steps {
+                echo '🔍 Tests d\'intégration...'
+                sh '''
+                    echo "Exécution des tests d'intégration..."
+                    # Ici on pourrait avoir des tests d'intégration réels
+                    python3 /tmp/deployed-app/app.py &
+                    APP_PID=$!
+                    sleep 2
+                    kill $APP_PID || true
+                    echo "Tests d'intégration terminés"
+                '''
+            }
+        }
+        
+        stage('Deploy to Production') {
+            when {
+                branch 'main'
+            }
+            steps {
+                echo '🌟 Déploiement en production...'
+                input message: 'Déployer en production?', ok: 'Déployer'
+                sh '''
+                    echo "Déploiement en production simulé..."
+                    mkdir -p /tmp/production-app
+                    cp -r dist/* /tmp/production-app/
+                    echo "Application déployée en production!"
+                '''
+            }
+        }
+    }
+    
+    post {
+        always {
+            echo '🧹 Nettoyage...'
+            sh '''
+                rm -f *.tar.gz
+                echo "Nettoyage terminé"
+            '''
+        }
+        success {
+            echo '✅ Pipeline exécuté avec succès!'
+        }
+        failure {
+            echo '❌ Pipeline échoué!'
+        }
+    }
+}

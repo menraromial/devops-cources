@@ -124,7 +124,7 @@ git branch -d feature/add-documentation
 
 ```bash
 # Ajouter le remote origin (remplacer USERNAME par votre nom d'utilisateur Gitea)
-git remote add origin http://localhost:3000/USERNAME/fundamentals-lab.git
+git remote add origin http://gitea:3000/USERNAME/fundamentals-lab.git
 
 # Pousser la branche main
 git push -u origin main

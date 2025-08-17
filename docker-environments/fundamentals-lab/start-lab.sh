@@ -82,6 +82,7 @@ check_service() {
     echo -e "🔍 Vérification de $service_name..."
     
     while [ $attempt -le $max_attempts ]; do
+        #echo -e "$service_name : Url = $url"
         if curl -s -f "$url" > /dev/null 2>&1; then
             echo -e "✅ ${GREEN}$service_name est prêt${NC}"
             return 0
@@ -99,7 +100,7 @@ check_service() {
 # Vérifier les services
 SERVICES_OK=true
 
-check_service "Jenkins" "http://localhost:8080" || SERVICES_OK=false
+check_service "Jenkins" "http://localhost:8080/login" || SERVICES_OK=false
 check_service "Gitea" "http://localhost:3000" || SERVICES_OK=false
 check_service "Sample App" "http://localhost:8000/health" || SERVICES_OK=false
 
